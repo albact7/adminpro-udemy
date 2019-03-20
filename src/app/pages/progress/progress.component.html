@@ -1,3 +1,39 @@
-<p>
-  progress works!
-</p>
+
+
+  <div class="row">
+      <div class="col-12">
+          <div class="card">
+              <div class="card-body">
+                
+                <h5 class="card-title">Progress bar</h5>
+                <app-progress-bar #prog1 ></app-progress-bar>
+                <br>
+                <app-progress-bar #prog2 color-class="bg-success"></app-progress-bar>
+
+              </div>
+          </div>
+      </div>
+  </div>
+
+  
+
+  <div class="row">
+      <div class="col-6">
+          <div class="card">
+              <div class="card-body">
+                
+                <app-incrementador (cambioValor)="prog1.actualizar( $event )" titulo-botones="Progress Azul" [progreso]="10"></app-incrementador>
+
+              </div>
+          </div>
+      </div>
+      <div class="col-6">
+          <div class="card">
+              <div class="card-body">
+                
+                <app-incrementador (cambioValor)="prog2.value_bar = $event" titulo-botones="Progress Verde" [progreso]="90"></app-incrementador>
+
+              </div>
+          </div>
+      </div>
+  </div>
