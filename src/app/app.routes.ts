@@ -10,16 +10,7 @@ import { RegisterComponent } from './login/register.component';
 
 
 const appRoutes: Routes = [
-    {//Rutas que quiero que funcionen dentro del pagecomponent
-        path: '', 
-        component: PagesComponent,
-        children: [
-            { path: 'dashboard', component:DashboardComponent },
-            { path: 'progress', component:ProgressComponent },
-            { path: 'graficas1', component:Graficas1Component },
-            { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
-        ] 
-    },
+    
     { path: '', component:PagesComponent },
     
     { path: 'login', component:LoginComponent },
