@@ -14,6 +14,8 @@ import { ProgressBarComponent } from './progress/progress-bar/progress-bar.compo
 import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.component';
 import { CommonModule } from '@angular/common';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { PromesasComponent } from './promesas/promesas.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
         IncrementadorComponent,
         ProgressBarComponent,
         GraficoDonaComponent,
-        AccountSettingsComponent  
+        AccountSettingsComponent,
+        PromesasComponent,
+        RxjsComponent  
     ],
     exports: [
         DashboardComponent,
