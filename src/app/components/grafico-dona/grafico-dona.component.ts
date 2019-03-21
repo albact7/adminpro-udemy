@@ -11,23 +11,21 @@ export class GraficoDonaComponent implements OnInit {
 
   // Doughnut
   @Input() public labels: Label[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  @Input() public dataSet: MultiDataSet = [
+  @Input() public data: MultiDataSet = [
     [350, 450, 100],
     [50, 150, 120],
     [250, 130, 70],
   ];
-  @Input() public type: ChartType = 'doughnut';
+  @Input() public chartType: ChartType = 'doughnut';
+  @Input() public leyenda:string = 'Leyenda';
 
-  constructor() { }
+  constructor() { console.log(this.labels, this.data, this.chartType);}
 
   ngOnInit() {
-    console.log(this.labels, this.dataSet, this.type);
+    console.log(this.labels, this.data, this.chartType);
     
   }
 
-  introduceData(labels: Label[], dataset:MultiDataSet){
-    this.labels = labels;
-    this.dataSet = dataset;
-  }
+  
 
 }

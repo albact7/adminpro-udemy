@@ -1,20 +1,29 @@
 <div class="row">
-    <div class="col-6">
+    <div class="col-6" *ngFor="let graf of graficos |keyvalue">
         <div class="card">
             <div class="card-body">
                 <div>
                     <div>
-                      <div style="display: block">
-                        
-                          <app-grafico-dona  [dataSet]="graficos.grafico1.data"
-                          [labels]="graficos.grafico1.labels"
-                          [type]="graficos.grafico1.type">
-                          </app-grafico-dona>
-                     
-                      </div>
+                                                
+                        <app-grafico-dona  [data]="graficos[graf.key].data"
+                        [labels]="graficos[graf.key].labels"
+                        [chartType]="graficos[graf.key].type"
+                        [leyenda]="graficos[graf.key].leyenda">
+                        </app-grafico-dona>
+
+                                                                    
                     </div>
-                  </div>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
+
+
+    
+
+
+
+
+
