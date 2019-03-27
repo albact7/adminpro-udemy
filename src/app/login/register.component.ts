@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 //import * as swal from 'sweetalert';
 import { UsuarioService } from '../services/service.index';
 import { Usuario } from '../models/usuario.model';
+import { Router } from '@angular/router';
 
 declare var swal: any;
 
@@ -17,7 +18,8 @@ export class RegisterComponent implements OnInit {
   forma: FormGroup
 
   constructor(
-    public _usuarioService:UsuarioService
+    public _usuarioService:UsuarioService,
+    public router: Router
   ) { }
 
 
@@ -76,7 +78,7 @@ export class RegisterComponent implements OnInit {
     
     this._usuarioService.crearUsuario(usuario)
           .subscribe(resp=> {
-            console.log(resp);
+           this.router.navigate(['/login'])
             
     });
   }
