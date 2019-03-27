@@ -93,4 +93,19 @@ export class UsuarioService {
             }));
 
   }
+
+  actualizarUsuario(usuario:Usuario){
+
+    let url = URL_SERVICIOS+'/usuario/'+usuario._id;
+    url += '?token='+this.token;
+
+    return this.http.put(url, usuario)
+      .pipe(map((resp:any)=>{
+        this.usuario = resp.usuario;
+        let usuarioDB: Usuario= resp.usuario 
+        this.guardarStorage(usuarioDB._id, this.token, usuarioDB);
+        swal('Usuario actualizado', usuario.nombre, 'success');
+        return true;
+      }));
+  }
 }
