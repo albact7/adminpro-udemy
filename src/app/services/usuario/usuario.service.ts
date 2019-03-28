@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { SubirArchivoService } from '../subirArchivo/subir-archivo.service';
 
 
 declare var swal: any;
@@ -18,7 +19,8 @@ export class UsuarioService {
 
   constructor(
     public http: HttpClient,
-    public router: Router
+    public router: Router,
+    public _subirArchivoService: SubirArchivoService
   ) { 
     this.cargarStorage();
     
@@ -107,5 +109,19 @@ export class UsuarioService {
         swal('Usuario actualizado', usuario.nombre, 'success');
         return true;
       }));
+  }
+
+  cambiarImagen(file: File, id:string){
+
+    this._subirArchivoService.subirArchivo(file, 'usuarios', id)
+      .then((resp: any) =>{
+        this.usuario.img = resp.usuario.img;
+        swal('Imagen actualizada', this.usuario.nombre, 'success');
+        this.guardarStorage(id, this.token, this.usuario);
+      })
+      .catch(resp =>{
+        console.log(resp);
+        
+      });
   }
 }
