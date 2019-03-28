@@ -1,0 +1,84 @@
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+
+        <input #input (keyup)="buscarUsuario(input.value)" type="text" class="form-control" placeholder="Buscar usuario...">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="cargando">
+  <div class="col-sm-12">
+    <div class="alert alert-warning text-center">
+      <strong>Cargando</strong>
+      <br>
+      <i class="fa fa-refresh fa-spin fa-2x"></i>
+      <br>
+      <strong>Espere, por favor</strong>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+
+        <h3 class="card-title">Usuarios registrados ( <small>{{numero_registrados}}</small> )</h3>
+
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Imagen</th>
+              <th>Correo</th>
+              <th>Nombre</th>
+              <th>Role</th>
+              <th>Auth</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let user of usuarios">
+              <td><img [src]="user.img | imagen" class="img-user-list"></td>
+              <td>{{user.email}}</td>
+              <td>{{user.nombre}}</td>
+              <td>
+                
+                <select #role [(ngModel)]="user.role" name="role" class="form-control">
+                  <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+                  <option value="USER_ROLE">USER_ROLE</option>
+                </select>
+
+              </td>
+              <td>
+                <ng-container *ngIf="user.google">Google</ng-container>
+                <ng-container *ngIf="!user.google">Default</ng-container>
+              </td>
+              <td>
+                <button (click)="guardarRoleUsuario(user,role.value)" class="btn btn-primary">
+                  <i class="fa fa-save"></i>
+                </button>
+                <button (click)="borrarUsuario(user,role.value)" class="btn btn-danger">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button (click)="cambiarPagina(-usuarios_por_pagina)" [disabled]="!hayAnteriores()" class="btn btn-secondary">
+          Anteriores
+        </button>
+
+        <button (click)="cambiarPagina(usuarios_por_pagina)" [disabled]="!haySiguientes()" class="btn btn-secondary">
+            Siguientes
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>

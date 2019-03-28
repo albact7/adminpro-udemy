@@ -1,43 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario.model';
-import { UsuarioService, SubirArchivoService } from 'src/app/services/service.index';
+import { SubirArchivoService } from 'src/app/services/service.index';
 
 declare var swal: any;
-
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
+  selector: 'app-modal-upload',
+  templateUrl: './modal-upload.component.html',
   styles: []
 })
-export class ProfileComponent implements OnInit {
-
+export class ModalUploadComponent implements OnInit {
 
   usuario:Usuario;
 
   imagenSubir: File;
   imagenTemp: string;
 
+  oculto:string='';
   constructor(
-    public _usuarioService: UsuarioService
-  ) { 
-    this.usuario = this._usuarioService.usuario;
-  }
+    public _cargaArchivoService: SubirArchivoService
+  ) { }
 
   ngOnInit() {
-  }
-
-  guardar(usuario:Usuario){
-    if(!this.usuario.google){
-      this.usuario.email = usuario.email;
-    }
-    this.usuario.nombre = usuario.nombre;
-    
-
-    this._usuarioService.actualizarUsuario(this.usuario)
-        .subscribe(resp => {
-          console.log(resp);
-          
-        });
   }
 
   seleccionImagen(file){
@@ -64,8 +47,8 @@ export class ProfileComponent implements OnInit {
     
   }
 
-  cambiarImagen(){
-    this._usuarioService.cambiarImagen(this.imagenSubir, this.usuario._id);
+  subirImagen(){
+    console.log('subida');
     
   }
 
