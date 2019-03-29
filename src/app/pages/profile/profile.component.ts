@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
     this.usuario.nombre = usuario.nombre;
     
 
-    this._usuarioService.actualizarUsuario(this.usuario)
+    this._usuarioService.update(this.usuario)
         .subscribe(resp => {
           console.log(resp);
           

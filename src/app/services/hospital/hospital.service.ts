@@ -27,10 +27,7 @@ export class HospitalService implements CRUDService{
     this.token = localStorage.getItem('token');
   }
 
-  cargarHospitales(){
-    let url = URL_SERVICIOS+'/hospital';
-    return this.http.get(url);
-  }
+
 
   buscarHospitales(termino: string){
     let url = URL_SERVICIOS +'/busqueda/coleccion/hospitales/'+ termino;
@@ -44,24 +41,10 @@ export class HospitalService implements CRUDService{
 
  
 
-  actualizarHospital(hosp:Hospital){
 
-    let url = URL_SERVICIOS+'/hospital/'+hosp._id;
-    
-    
-    url += '?token='+this.token;
-    console.log(url);
-    return this.http.put(url, hosp)
-      .pipe(map((resp:any)=>{
-        console.log('Actualizado hps');
-        
-        swal('Hospital actualizado', hosp.nombre, 'success');
-        return true;
-      }));
-  }
-
-  getAll(): any[]{
-    throw new Error("Method not implemented.");
+  getAll(){
+    let url = URL_SERVICIOS+'/hospital';
+    return this.http.get(url);
   }
   update(hosp: Hospital){
     let url = URL_SERVICIOS+'/hospital/'+hosp._id;
@@ -93,7 +76,6 @@ export class HospitalService implements CRUDService{
   delete(id:string){
       let url = URL_SERVICIOS+'/hospital/'+id;
       url += '?token='+this.token;
-      console.log(url);
       
       return this.http.delete(url)
         .pipe(map((resp:any) =>{

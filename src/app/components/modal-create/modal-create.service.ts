@@ -25,10 +25,6 @@ export class ModalCreateService {
   mostrarModal(tipo:string, service:CRUDService){
     this.oculto="";
     this.tipo = tipo;   
-    this.currentService = service;
-    console.log('modal create serv');
-    console.log(this.currentService);
-    
-    
+    this.currentService = service;    
   }
 }

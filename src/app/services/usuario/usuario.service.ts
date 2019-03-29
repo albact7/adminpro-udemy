@@ -5,6 +5,7 @@ import { URL_SERVICIOS } from 'src/app/config/config';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subirArchivo/subir-archivo.service';
+import { CRUDService } from '../interface.service';
 
 
 declare var swal: any;
@@ -12,7 +13,8 @@ declare var swal: any;
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioService {
+export class UsuarioService implements CRUDService{
+  
 
   usuario:Usuario;
   token:string;
@@ -69,15 +71,6 @@ export class UsuarioService {
             }));
   } 
 
-  crearUsuario(usuario: Usuario){
-    let url= URL_SERVICIOS+'/usuario';
-
-    return this.http.post(url, usuario)
-            .pipe(map((resp:any) =>{
-              swal('Usuario creado', usuario.email, 'success');
-              return resp.usuario;
-            }));
-  }
 
   login(usuario:Usuario, recordar: boolean = false){
 
@@ -96,24 +89,7 @@ export class UsuarioService {
 
   }
  
-  actualizarUsuario(usuario:Usuario){
-
-    let url = URL_SERVICIOS+'/usuario/'+usuario._id;
-    url += '?token='+this.token;
-
-    return this.http.put(url, usuario)
-      .pipe(map((resp:any)=>{
-        this.usuario = resp.usuario;
-        if(usuario._id === this.usuario._id){
-          let usuarioDB: Usuario= resp.usuario 
-          this.guardarStorage(usuarioDB._id, this.token, usuarioDB);    
-        }
-
-        swal('Usuario actualizado', usuario.nombre, 'success');
-        return true;
-      }));
-  }
-
+  
   cambiarImagen(file: File, id:string){
 
     this._subirArchivoService.subirArchivo(file, 'usuarios', id)
@@ -128,29 +104,55 @@ export class UsuarioService {
       });
   }
 
-  cargarUsuarios(desde: number = 0){
-    let url = URL_SERVICIOS+'/usuario?desde='+desde;
-    return this.http.get(url);
-  }
+  
 
   buscarUsuarios(termino: string){
     let url = URL_SERVICIOS +'/busqueda/coleccion/usuarios/'+ termino;
     return this.http.get(url);
   }
 
-  borrarUsuario(id: string){
-    let url = URL_SERVICIOS+'/usuario/'+id;
-    url += '?token='+this.token;
-    console.log(url);
-    
-    return this.http.delete(url)
-      .pipe(map((resp:any) =>{
-        console.log('borrado');
-        
-        swal('Usuario borrado','', 'success');
-        return;
+  getAll(desde: number = 0){
+    let url = URL_SERVICIOS+'/usuario?desde='+desde;
+    return this.http.get(url);
+}
+update(usuario: Usuario){
+  let url = URL_SERVICIOS+'/usuario/'+usuario._id;
+  url += '?token='+this.token;
+
+  return this.http.put(url, usuario)
+    .pipe(map((resp:any)=>{
+      this.usuario = resp.usuario;
+      if(usuario._id === this.usuario._id){
+        let usuarioDB: Usuario= resp.usuario 
+        this.guardarStorage(usuarioDB._id, this.token, usuarioDB);    
+      }
+
+      swal('Usuario actualizado', usuario.nombre, 'success');
+      return true;
     }));
-      
+}
+create(usuario: Usuario){
+  let url= URL_SERVICIOS+'/usuario';
+
+  return this.http.post(url, usuario)
+          .pipe(map((resp:any) =>{
+            swal('Usuario creado', usuario.email, 'success');
+            return resp.usuario;
+          }));
+}
+delete(id: string){
+  let url = URL_SERVICIOS+'/usuario/'+id;
+  url += '?token='+this.token;
+  console.log(url);
   
-  }
+  return this.http.delete(url)
+    .pipe(map((resp:any) =>{
+      console.log('borrado');
+      
+      swal('Usuario borrado','', 'success');
+      return;
+  }));
+}
+
+
 }

@@ -51,7 +51,7 @@ export class HospitalComponent implements OnInit {
 
   cargarHospitales(){
     this.cargando = true;
-    this._hospitalService.cargarHospitales()
+    this._hospitalService.getAll()
         .subscribe((resp:any) =>{
           console.log(resp);
           
@@ -64,7 +64,7 @@ export class HospitalComponent implements OnInit {
 
   actualizarHospital(hosp: Hospital, nombre:string){
     hosp.nombre = nombre;
-    this._hospitalService.actualizarHospital(hosp)
+    this._hospitalService.update(hosp)
         .subscribe(resp => {
           console.log(resp);
           console.log('hospital actualizado');
@@ -73,8 +73,7 @@ export class HospitalComponent implements OnInit {
   }
 
   borrarHospital(hospital:Hospital){
-    console.log('a borrar', hospital._id);
-    
+   
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this hospital!",

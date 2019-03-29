@@ -19,7 +19,6 @@ export class ModalCreateComponent implements OnInit {
 
   ngOnInit() {
     init_plugins();
-    console.log('modal create component 2');
     this.formGroup = new FormGroup({
       nombre: new FormControl(null, Validators.required),
       
@@ -30,13 +29,9 @@ export class ModalCreateComponent implements OnInit {
 
 
   crearItem(){
-    console.log('creando item');
-    this.service = this._modalCreateService.currentService;
-    console.log(this.service);
-  
+    this.service = this._modalCreateService.currentService;  
     this.service.create(this.fromFormToArray())
     .subscribe(resp=> {
-      console.log('Creado item');
       this._modalCreateService.notificacion.emit();
       
     });

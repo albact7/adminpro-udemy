@@ -37,7 +37,7 @@ export class UsuariosComponent implements OnInit {
 
   cargarUsuarios(){
     this.cargando = true;
-    this._usuarioService.cargarUsuarios(this.desde)
+    this._usuarioService.getAll(this.desde)
         .subscribe((resp:any) =>{
           this.usuarios = resp.usuarios;
           this.numero_registrados = resp.total;
@@ -90,7 +90,7 @@ export class UsuariosComponent implements OnInit {
     })
     .then((willDelete) => {
       if (willDelete) {
-        this._usuarioService.borrarUsuario(usuario._id)
+        this._usuarioService.delete(usuario._id)
         .subscribe((resp:any)=>{
           swal("Poof! Your user has been deleted!", {
             icon: "success",
@@ -107,7 +107,7 @@ export class UsuariosComponent implements OnInit {
 
   guardarRoleUsuario(usuario:Usuario, role:string){
     usuario.role = role;
-    this._usuarioService.actualizarUsuario(usuario)
+    this._usuarioService.update(usuario)
         .subscribe(resp => {
           console.log(resp);
           console.log('rol actualizado');
