@@ -5,7 +5,7 @@ import { Graficas1Component } from './graficas1/graficas1.component';
 import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/shared.module';
 import { PAGES_ROUTES } from './pages.routes';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 
 //
@@ -21,6 +21,8 @@ import { PipesModule } from '../pipes/pipes.module';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
+import { HospitalComponent } from './hospital/hospital.component';
+import { ModalCreateComponent } from '../components/modal-create/modal-create.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +38,9 @@ import { ModalUploadComponent } from '../components/modal-upload/modal-upload.co
         RxjsComponent,
         ProfileComponent,
         UsuariosComponent,
-        ModalUploadComponent   
+        ModalUploadComponent,
+        HospitalComponent,
+        ModalCreateComponent   
     ],
     exports: [
         DashboardComponent,
@@ -49,7 +53,8 @@ import { ModalUploadComponent } from '../components/modal-upload/modal-upload.co
         FormsModule,
         ChartsModule,
         CommonModule,
-        PipesModule
+        PipesModule,
+        ReactiveFormsModule
     ]
 })
 export class PagesModule{}

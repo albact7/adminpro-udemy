@@ -1,0 +1,38 @@
+<div class="fondo-negro animated fadeIn" [ngClass]="_modalCreateService.oculto">
+
+  <div class="modal" style="display: block;" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button (click)="cerrarModal()" type="button" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" align="center">
+  
+              <img *ngIf="!imagenTemp" [src]="'aaa' | imagen" class="w150">
+              <img *ngIf="imagenTemp" [src]="imagenTemp" class="w150">
+              <form ngNativeValidate [formGroup]="formGroup" (ngSubmit)="registrarHospital()" class="form-horizontal form-material" id="hospitalform" action="index.html">
+                
+                <div class="form-group m-t-20">
+                  <div class="col-xs-12">
+                    <input (change)="seleccionImagen($event.target.files[0])" type="file">
+                  </div>
+                </div>
+                <div class="form-group m-t-20">
+                  <div class="col-xs-12">
+                      <input formControlName="nombre" name="nombre" class="form-control" type="text" required placeholder="Name">
+                  </div>
+                </div>
+              </form>
+  
+          </div>
+          <div class="modal-footer">
+            <button (click)="crearItem()"  type="button" class="btn btn-primary">Save changes</button>
+            <button (click)="cerrarModal()" type="button" class="btn btn-secondary" >Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>

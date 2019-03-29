@@ -57,7 +57,7 @@ export class ModalUploadComponent implements OnInit {
          
         })
         .catch(err=>{
-          console.log('Error en l a carga');
+          console.log('Error en la carga');
           
         });
   }
