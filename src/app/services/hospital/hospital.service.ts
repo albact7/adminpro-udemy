@@ -3,7 +3,7 @@ import { Hospital } from 'src/app/models/hospital.model';
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { SubirArchivoService } from '../service.index';
+import { SubirArchivoService } from '../subirArchivo/subir-archivo.service';
 import { map } from 'rxjs/operators';
 import { CRUDService } from '../interface.service';
 
@@ -34,7 +34,7 @@ export class HospitalService implements CRUDService{
     return this.http.get(url);
   }
   
-  obtenerHospital(id:string){
+  getById(id:string){
     let url = URL_SERVICIOS +'/hospital/'+ id;
     return this.http.get(url);
   }

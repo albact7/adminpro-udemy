@@ -11,4 +11,5 @@ export abstract class CRUDService {
   abstract update(item:any);
   abstract create(item:any);
   abstract delete(item:any);
+  abstract getById(id:string);
 }

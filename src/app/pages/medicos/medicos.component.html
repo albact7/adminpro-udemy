@@ -1,3 +1,65 @@
-<p>
-  medicos works!
-</p>
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+
+        <input #input (keyup)="buscarMedico(input.value)" type="text" class="form-control" placeholder="Buscar médico...">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="cargando">
+  <div class="col-sm-12">
+    <div class="alert alert-warning text-center">
+      <strong>Cargando</strong>
+      <br>
+      <i class="fa fa-refresh fa-spin fa-2x"></i>
+      <br>
+      <strong>Espere, por favor</strong>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <h3 class="card-title col-sm-9">Médicos ( <small>{{numero_medicos}}</small> )</h3>
+          <button [routerLink]="['/medico', 'nuevo']" type="button" class="btn btn-primary col-sm-2"><i class="mdi mdi-plus-circle"></i> Create doctor</button>
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Imagen</th>
+              <th>Nombre</th>
+              <th>Hospital</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let med of medicos">
+              <td><img (click)="mostrarModal( med._id )" [src]="med.img | imagen:'medico'" class="img-user-list pointer"></td>
+              <td>{{med.nombre}}</td>
+              <td>{{med.hospital.nombre}}</td>          
+              <td>
+                <button [routerLink]="['/medico', med._id]" class="btn btn-primary">
+                  <i class="fa fa-edit"></i>
+                </button>
+                <button (click)="borrarMedico(med)" class="btn btn-danger">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        
+
+      </div>
+    </div>
+  </div>
+</div>

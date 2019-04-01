@@ -27,15 +27,12 @@ export class HospitalComponent implements OnInit {
 
   ngOnInit() {
     
-    this.cargarHospitales();
+    
     this._modalCreateService.notificacion
-      .subscribe(resp=>{
-        this.cargarHospitales();
-    });
+      .subscribe();
     this._modalUpdateService.notificacion
-      .subscribe(resp=>{
-        this.cargarHospitales();
-    });
+      .subscribe();
+    this.cargarHospitales();
   }
 
   mostrarModal(id:string){
