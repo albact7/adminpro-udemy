@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioService } from 'src/app/services/service.index';
 import { ModalUploadService } from 'src/app/components/modal-upload/modal-upload.service';
+import { URL_SERVICIOS } from 'src/app/config/config';
 
 declare var swal: any;
 @Component({
@@ -114,5 +115,7 @@ export class UsuariosComponent implements OnInit {
           
         });
   }
+
+  
 
 }

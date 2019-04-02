@@ -7,6 +7,7 @@ import { SubirArchivoService } from './subirArchivo/subir-archivo.service';
 import { ModalUploadService } from '../components/modal-upload/modal-upload.service';
 import { HospitalService } from './hospital/hospital.service';
 import { ModalCreateService } from '../components/modal-create/modal-create.service';
+import { VerificaTokenGuard } from './guards/verifica-token.guard';
 
 
 
@@ -27,7 +28,8 @@ import { ModalCreateService } from '../components/modal-create/modal-create.serv
     ModalCreateService,
     MedicoService,
     LoginGuardGuard,
-    AdminGuard
+    AdminGuard,
+    VerificaTokenGuard
   ]
 })
 export class ServiceModule { }
