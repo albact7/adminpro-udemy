@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario.model';
 import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from 'src/app/config/config';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subirArchivo/subir-archivo.service';
 import { CRUDService } from '../interface.service';
-
+import { throwError } from 'rxjs/internal/observable/throwError';
 
 declare var swal: any;
 
@@ -75,7 +75,7 @@ loginGoogle(token: string, recordar: boolean = false){
   return this.http.post(url, {token})
           .pipe(map((resp:any)=>{
             this.guardarStorage(resp.id,resp.token, resp.usuario, resp.menu);
-            console.log('login us servioce');
+            console.log('login us service');
             
             console.log(resp.menu);
             return true;
@@ -93,14 +93,21 @@ login(usuario:Usuario, recordar: boolean = false){
 
   let url = URL_SERVICIOS + '/login';
   return this.http.post(url, usuario)
-          .pipe(map((resp:any) => {
+          .pipe(
+            map((resp:any) => {
             this.guardarStorage(resp.id,resp.token, resp.usuario, resp.menu);
-            console.log('login us servioce');
+            console.log('login us service');
             
             console.log(resp.menu);
             
             return true;
-          }));
+          }),
+          catchError( err=>{ 
+            console.log(err.error.mensaje);
+            swal('Error en el login', err.error.mensaje,'error');
+            return throwError(err);
+          })
+          );
 
 }
 
@@ -144,7 +151,13 @@ update(usuario: Usuario){
 
       swal('Usuario actualizado', usuario.nombre, 'success');
       return true;
-    }));
+    }),
+    catchError( err=>{ 
+      console.log(err.error.mensaje);
+      swal(err.error.mensaje, err.error.errors.message,'error');
+      return throwError(err);
+    })
+    );
 }
 create(usuario: Usuario){
   let url= URL_SERVICIOS+'/usuario';
@@ -153,7 +166,13 @@ create(usuario: Usuario){
           .pipe(map((resp:any) =>{
             swal('Usuario creado', usuario.email, 'success');
             return resp.usuario;
-          }));
+          }),
+          catchError( err=>{ 
+            console.log(err.error.mensaje);
+            swal(err.error.mensaje, err.error.errors.message,'error');
+            return throwError(err);
+          })
+          );
 }
 delete(id: string){
   let url = URL_SERVICIOS+'/usuario/'+id;
